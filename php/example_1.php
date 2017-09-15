@@ -14,7 +14,7 @@ $data = [
     [
         'id'        => 2,
         'title'     => 'Audio',
-        'parent'    => 0
+        'parent'    => 1
     ],   
     [
         'id'        => 3,
@@ -316,8 +316,13 @@ ul {margin-bottom: 10px;}
 </style>
 </head>
 <body>
-<?php $menu->showTree(); ?>
-<?php //print_r($menu->getTree()); ?>
+<?php
+
+    $menu->showTree();
+    //print_r($menu->getTree());
+
+    $rt->end();
+ 
+?>
 </body>
 </html>
-<?php $rt->end(); ?>

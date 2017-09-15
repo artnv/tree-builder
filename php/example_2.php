@@ -3,13 +3,7 @@ require_once "modules/RuntimeTracker.php";
 require_once "modules/TreeBuilder.php";
 require_once "modules/Generator.php"; 
 
-generate_data(5000); // creates a file "tmp_generated_data.php" (random parent)
-
-if(file_exists('tmp_generated_data.php'))
-{
-    include "tmp_generated_data.php";
-} else die('File include error');
-
+$data = generate_data(1000); // creates a file "tmp_generated_data.php" (random parent)
 
 $rt = new RuntimeTracker;
 $rt->start();
@@ -27,8 +21,13 @@ ul {margin-bottom: 10px;}
 </style>
 </head>
 <body>
-<?php $menu->showTree(); ?>
-<?php //print_r($menu->getTree()); ?>
+<?php
+
+    $menu->showTree();
+    //print_r($menu->getTree());
+
+    $rt->end();
+
+?>
 </body>
 </html>
-<?php $rt->end(); ?>

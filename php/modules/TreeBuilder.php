@@ -43,14 +43,14 @@ class TreeBuilder
         $this->html     .= '</ul>';
     }
 
-    // Создание главных веток, у которых parent === 0
+    // Создание главных веток, у которых parent == 0
     private function makeMainTree()
     {
         $ln         = $this->inputArrLength;
         $inputArr   = $this->inputArr;
         
         while($ln--) {
-           if($inputArr[$ln]['parent'] === 0) {
+           if($inputArr[$ln]['parent'] == 0) {
                 $this->outputArr[] = $inputArr[$ln];
            }
         }
@@ -77,7 +77,7 @@ class TreeBuilder
                     // Поиск дочерних элементов.
                     // После того как нашли потомка, добавляем его к родителю,
                     // далее переходим к найденному потомку и ищем уже его потомков в общем массиве
-                    if($outputArr[$outputArrLength]['id'] === $inputArr[$inputArrLength]['parent']) {
+                    if($outputArr[$outputArrLength]['id'] == $inputArr[$inputArrLength]['parent']) {
 
                         $outputArr[$outputArrLength]['child'][] = $inputArr[$inputArrLength];
                         
