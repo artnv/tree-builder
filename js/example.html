@@ -1,0 +1,58 @@
+<html>
+<head>
+<style>
+.tree {
+    font-size: 14px;
+    font-family: sans-serif;
+}
+.tree ul {
+    border-left: 1px dashed #ccc;
+    padding-left: 10px;
+    margin-left: 12px;
+    margin-bottom: 10px;
+    color: #0262f9;
+}
+.tree ul li {
+    list-style: none;
+    padding-left: 10px;
+    margin-bottom: 3px;
+}
+.tree ul li:before {
+    position: absolute;
+    border-top: 1px dashed #ccc;
+    width: 15px;
+    height: 1px;
+    content: "";
+    margin: 7px 0px 0px -18px;
+}
+</style>
+<script type="text/javascript" src="TreeBuilder.js"></script>
+<script type="text/javascript" src="data.js"></script>
+<script type="text/javascript">
+window.addEventListener("DOMContentLoaded", function() {
+console.time('tree');    
+
+
+    var  x,  html = '';
+
+    x = new TreeBuilder(),
+    x.setData(data);
+
+    //console.log(x.getTree()); 
+    //html  = x.showTree(x.getTree());
+    html    = x.showTree(); 
+    
+    
+    document.getElementById('main').innerHTML = html;
+
+    
+console.timeEnd('tree');
+});
+</script>
+</head>
+<body>
+
+<div id="main" class="tree"></div>
+
+</body>
+</html>

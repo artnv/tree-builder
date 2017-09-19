@@ -7,9 +7,9 @@
 
     $tb = new TreeBuilder;
 
-    $tb->setData($dataArr);     set array
+    $tb->setData($dataArr);
     $tb->getTree();             return assoc array
-    $tb->showTree();            echo html tree
+    $tb->showTree();            return html tree
 
 */
 
@@ -25,7 +25,7 @@ class TreeBuilder
     private function recursiveMakeVisualTree($arr)
     {
         $ln             = count($arr);
-        $this->html     .= '<ul class="line">';
+        $this->html     .= '<ul>';
 
         while($ln--) {
 
@@ -48,7 +48,7 @@ class TreeBuilder
     {
         $ln         = $this->inputArrLength;
         $inputArr   = $this->inputArr;
-        
+
         while($ln--) {
            if($inputArr[$ln]['parent'] == 0) {
                 $this->outputArr[] = $inputArr[$ln];
@@ -74,15 +74,20 @@ class TreeBuilder
 
                 if(isset($inputArr[$inputArrLength])) {
 
-                    // Поиск дочерних элементов.
-                    // После того как нашли потомка, добавляем его к родителю,
-                    // далее переходим к найденному потомку и ищем уже его потомков в общем массиве
+                    /* 
+                        Поиск дочерних элементов.
+                        После того как нашли потомка, добавляем его к родителю,
+                        далее переходим к найденному потомку и ищем уже его потомков в общем массиве 
+                    */
                     if($outputArr[$outputArrLength]['id'] == $inputArr[$inputArrLength]['parent']) {
 
+                        // Добавляем потомка в новый массив, к его родителю
                         $outputArr[$outputArrLength]['child'][] = $inputArr[$inputArrLength];
-                        
+
+                        // Удаляем чтобы повторно с ним не работать
                         unset($inputArr[$inputArrLength]);
-  
+                        
+                        // Ищем потомков у найденного потомка
                         $this->recursiveDeepSearch($outputArr[$outputArrLength]['child']);
 
                     }
@@ -94,7 +99,7 @@ class TreeBuilder
         }
 
     }
-    
+
     /* --------------------- public ---------------------- */
 
     public function setData($inputArr)
@@ -131,7 +136,7 @@ class TreeBuilder
             $this->getTree()
         );
 
-        echo $this->html;
+        return $this->html;
 
     }
 
