@@ -57,7 +57,7 @@ class TreeBuilder
 
     }
 
-    // Поиск дочерних элементов по общему массиву
+    // Рекурсивный поиск дочерних элементов по общему массиву
     private function recursiveDeepSearch( & $outputArr)
     {
 

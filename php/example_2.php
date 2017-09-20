@@ -12,14 +12,16 @@ $menu   = new TreeBuilder;
 $menu->setData($data);
 
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<style>
+<style rel="stylesheet">
 .tree {
     font-size: 14px;
     font-family: sans-serif;
 }
 .tree ul {
+    white-space: nowrap;
     border-left: 1px dashed #ccc;
     padding-left: 10px;
     margin-left: 12px;
@@ -32,18 +34,19 @@ $menu->setData($data);
     margin-bottom: 3px;
 }
 .tree ul li:before {
-    position: absolute;
+    position: relative;
     border-top: 1px dashed #ccc;
     width: 15px;
     height: 1px;
     content: "";
-    margin: 7px 0px 0px -18px;
+    display: inline-block;
+    margin: 0px 5px 4px -18px;
 }
 </style>
 </head>
 <body>
 
-Random generated:
+Random parent:
 <div class="tree">
 <?php
 
