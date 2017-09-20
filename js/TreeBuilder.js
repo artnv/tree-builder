@@ -2,6 +2,7 @@
 
     https://github.com/artnv/TreeBuilder
 
+    v: 0.1
     ----------
 
     var x   = new TreeBuilder();

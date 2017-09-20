@@ -2,7 +2,8 @@
 /*  
 
     https://github.com/artnv/TreeBuilder
-
+    
+    v: 0.1
     ------------------
 
     $tb = new TreeBuilder;
