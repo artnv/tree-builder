@@ -166,7 +166,7 @@ var TreeBuilder = (function() {
         if(arg) {
             data    = arg;
         } else {
-            data    = this.getTree()
+            data    = this.getTree();
         }
 
         this._recursiveMakeVisualTree(data);
