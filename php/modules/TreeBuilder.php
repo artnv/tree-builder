@@ -3,7 +3,7 @@
 
     https://github.com/artnv/TreeBuilder
     
-    v: 0.1
+    v: 0.1.1
     ------------------
 
     $tb = new TreeBuilder;
@@ -20,7 +20,7 @@ class TreeBuilder
     private $inputArr;
     private $inputArrLength;
     private $outputArr;
-    private $html = '';
+    private $html;
 
     // Строит html-дерево
     private function recursiveMakeVisualTree($arr)
@@ -47,8 +47,9 @@ class TreeBuilder
     // Создание главных веток, у которых parent == 0
     private function makeMainTree()
     {
-        $ln         = $this->inputArrLength;
-        $inputArr   = $this->inputArr;
+
+        $ln             = $this->inputArrLength;
+        $inputArr       = $this->inputArr;
 
         while($ln--) {
            if($inputArr[$ln]['parent'] == 0) {
@@ -105,8 +106,12 @@ class TreeBuilder
 
     public function setData($inputArr)
     {
-        $this->inputArr          = $inputArr;
-        $this->inputArrLength    = count($inputArr);
+
+        $this->html             = '';
+        $this->outputArr        = [];
+
+        $this->inputArr         = $inputArr;
+        $this->inputArrLength   = count($inputArr);
     }
 
     // Возвращает результат в виде массива
@@ -114,7 +119,7 @@ class TreeBuilder
     public function getTree()
     {
 
-        if(isset($this->outputArr)) {
+        if($this->outputArr) {
 
             return $this->outputArr;
 
@@ -130,14 +135,23 @@ class TreeBuilder
     }
 
     // Возвращает html дерево с тегами
+    // Если метод ранее вызывался, будет возвращать кешированный результат
     public function showTree()
     {
 
-        $this->recursiveMakeVisualTree(
-            $this->getTree()
-        );
+        if($this->html) {
 
-        return $this->html;
+            return $this->html;
+
+        } else {
+
+            $this->recursiveMakeVisualTree(
+                $this->getTree()
+            );
+
+            return $this->html;
+
+        }
 
     }
 

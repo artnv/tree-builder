@@ -2,14 +2,14 @@
 
     https://github.com/artnv/TreeBuilder
 
-    v: 0.1
+    v: 0.1.1
     ----------
 
     var x   = new TreeBuilder();
 
     x.setData(data);
-    x.getTree();                                    // return array of objects
-    x.showTree();   ==  x.showTree(x.getTree());    // return html tree
+    x.getTree();            // return array of objects
+    x.showTree();           // return html tree
    
 
 */
@@ -129,8 +129,13 @@ var TreeBuilder = (function() {
     };
 
     TB.prototype.setData = function(arr) {
-        this.stateMap.inputArr           = arr;
-        this.stateMap.inputArrLength     = arr.length;
+
+        this.html                       = '';
+        this.stateMap.outputArr         = [];
+
+        this.stateMap.inputArr          = JSON.parse(JSON.stringify(arr)); // Копирование массива
+        this.stateMap.inputArrLength    = arr.length;
+
     };
 
     // Возвращает результат в виде массива
@@ -157,21 +162,22 @@ var TreeBuilder = (function() {
     };
 
     // Возвращает html дерево с тегами
-    TB.prototype.showTree = function(arg) {
+    // Если метод ранее вызывался, будет возвращать кешированный результат    
+    TB.prototype.showTree = function() {
 
-        var 
-            data;
-        // --
+        if(this.html) {
 
-        if(arg) {
-            data    = arg;
+            return this.html;
+
         } else {
-            data    = this.getTree();
+
+            this._recursiveMakeVisualTree(
+                this.getTree()
+            );
+
+            return this.html;
+
         }
-
-        this._recursiveMakeVisualTree(data);
-
-        return this.html;
 
     };
 

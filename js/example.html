@@ -35,20 +35,16 @@
 window.addEventListener("DOMContentLoaded", function() {
 console.time('tree');    
 
+    var  
+        x;
+    // --
 
-    var  x,  html = '';
-
-    x = new TreeBuilder(),
+    x = new TreeBuilder();
     x.setData(data);
 
-    //console.log(x.getTree()); 
-    //html  = x.showTree(x.getTree());
-    html    = x.showTree(); 
-    
-    
-    document.getElementById('main').innerHTML = html;
+    //console.log(x.getTree());
+    document.getElementById('main').innerHTML = x.showTree();
 
-    
 console.timeEnd('tree');
 });
 </script>

@@ -303,9 +303,6 @@ $data = [
     ]
 ];
 
-$menu = new TreeBuilder;
-$menu->setData($data);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -344,9 +341,12 @@ $menu->setData($data);
 <div class="tree">
 <?php
 
-    echo $menu->showTree();
-    //print_r($menu->getTree());
+    $tb = new TreeBuilder;
+    $tb->setData($data);
 
+    echo $tb->showTree();
+    //print_r($tb->getTree());
+ 
     $rt->end();
  
 ?>

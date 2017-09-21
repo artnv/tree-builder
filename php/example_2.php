@@ -8,9 +8,6 @@ $data   = generate_data(1000); // creates a file "tmp_generated_data.php" (rando
 $rt     = new RuntimeTracker;
 $rt->start();
 
-$menu   = new TreeBuilder;
-$menu->setData($data);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,8 +47,11 @@ Random parent:
 <div class="tree">
 <?php
 
-    echo $menu->showTree();
-    //print_r($menu->getTree());
+    $tb   = new TreeBuilder;
+    $tb->setData($data);
+
+    echo $tb->showTree();
+    //print_r($tb->getTree());
 
     $rt->end();
 

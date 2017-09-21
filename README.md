@@ -1,7 +1,7 @@
 # TreeBuilder
 ```
-php v0.1
-js  v0.1
+php v0.1.1
+js  v0.1.1
 ```
 
 Библиотека для построения вложенных списков по типу родитель-потомок.
@@ -19,11 +19,12 @@ js  v0.1
 - `var tb = new TreeBuilder();` - Вызов конструктора
 - `tb.setData(data);` - Установка массива с данными
 - `tb.getTree();` - Возвращает новый массив с объектами
-- `tb.showTree();` - Создает дерево в формате html (ul -> li), из массива с объектами. В качестве аргумента принимает его же, если есть `tb.showTree();`  == `tb.showTree(tb.getTree());`
-    
+- `tb.showTree();` - Создает дерево в формате html (ul -> li), из массива с объектами
+
 ```js
 
     tb = new TreeBuilder();
+
     tb.setData([
         {
             id        : 1,
@@ -37,7 +38,7 @@ js  v0.1
         } 
     ]);
 
-    console.log( tb.getTree() );          // array
+    console.log( tb.getTree() );        // array
     document.write( tb.showTree() );    // <ul><li>Electronics</li><ul><li>Audio</li></ul></ul>
 
 ```
@@ -52,6 +53,7 @@ js  v0.1
 ```php
 
     $tb = new TreeBuilder;
+
     $tb->setData([
         [
             'id'        => 1,
@@ -65,7 +67,7 @@ js  v0.1
         ]
     ]);
 
-    print_r($tb->getTree());    // assoc array list
-    echo $tb->showTree();       // <ul><li>Electronics</li><ul><li>Audio</li></ul></ul>
+    print_r( $tb->getTree() );      // assoc array list
+    echo $tb->showTree();           // <ul><li>Electronics</li><ul><li>Audio</li></ul></ul>
 
 ```
