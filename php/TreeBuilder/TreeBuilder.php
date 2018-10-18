@@ -1,72 +1,11 @@
 <?php
 
-/*  
-
-    https://github.com/artnv/TreeBuilder
-    
-    v: 0.2
-    ------------------
-    
-    $tb = TreeBuilder::create($dataArr, null, null, false);
-        create($inputArr, $aliases = null, $userParams = [], $sort_enabled = true);
-    
-    Входные данные для построения дерева.
-    Обязательные поля: id, parent, title и position (если используется сортировка)
-    
-    $dataArr = [
-        'id' => 1
-        'parent_id' => 0
-        'img' => '123.jpg'
-        'name' => 'Category #1'
-        'keywords' => ''
-        'description' => ''
-        'position' => 2
-    ];
-    
-    
-    Алиасы.
-    Данные из разных источников емеют разное название полей, чтобы их не менять, просто укажите их в качестве значений у ключей.
-    Если алиасы не переданы в качестве аргумента, то используются по умолчанию:
-    
-    $aliases = [
-        'id' => 'id',
-        'parent' => 'parent',
-        'title' => 'title',
-        'child' => 'child',
-        'position' => 'position',
-    ];
-
-    Параметры пользователя.
-    Будут доступны в шаблонных методах rootNode и childNode
-    $userParams = [];
-    
-    Сортировка.
-    По умолчанию $sort_enabled = true;
-    Во массиве должен быть ключ ['position'] чтобы сортировка работала, если его нет, отключите сортировку.
-    Для каждого узла с одним родителем ['parent_id'] позиция начинается с нуля и сортирует от большего числа к меньшему.
-
-    Примеры использования:
-    $tb->getTree(); - возвращает ассоциативный массив
-    $tb->showTree(); - возвращает html дерево на основе шаблона
-    $tb->getParents($node); - возвращает ассоциативный массив с цепочкой родительских узлов типа "хлебных крошек"
-    $tb->getChilds($node); - возвращает ассоциативный массив с потомками конкретного узла
-    
-    Шаблона оформления дерева.
-    В директории уже есть готовые примеры HtmlTree.php и SelectTree.php, а если вам нужен свой шаблон, то отнаследуйтесь от TreeBuilder и реализуйте интерфейс TreeBuilderInterface с двумя методами:
-    
-    Дочерние узлы - childNode($item, $childNodes, $aliases, $nestingLevel, $userParams);
-        $item - текущий элемент массива
-        $childNodes - дочерние узлы текущего родителя
-        $aliases - алиасы
-        $nestingLevel - уровень вложенности (на основе этого значения можно добавлять линию для визуального оформления)
-        $userParams - параметры пользователя
-        
-    Корневой узел - rootNode($nodes, $firstStart)
-        $nodes это данные из childNode.
-        $firstStart = true, при первом запуске
-    
-
+/*
+    v 0.2
+    https://github.com/artnv/tree-builder
+    docs: https://github.com/artnv/tree-builder/blob/master/README.md
 */
+
 include_once "TreeBuilderInterface.php";
 
 class TreeBuilder implements TreeBuilderInterface
