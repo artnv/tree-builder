@@ -1,7 +1,7 @@
 <?php
 
 /*
-    v 0.2
+    v0.2
     https://github.com/artnv/tree-builder
     docs: https://github.com/artnv/tree-builder/blob/master/README.md
 */
@@ -263,5 +263,4 @@ class TreeBuilder implements TreeBuilderInterface
         
         return $this->childsArr;
     }
-}       
-?>
+}

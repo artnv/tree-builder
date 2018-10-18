@@ -1,17 +1,8 @@
+
 /*
-
-    https://github.com/artnv/TreeBuilder
-
-    v: 0.1.1
-    ----------
-
-    var x   = new TreeBuilder();
-
-    x.setData(data);
-    x.getTree();            // return array of objects
-    x.showTree();           // return html tree
-   
-
+    v0.1.1
+    https://github.com/artnv/tree-builder
+    docs: https://github.com/artnv/tree-builder/blob/master/README.md
 */
 
 var TreeBuilder = (function() {
