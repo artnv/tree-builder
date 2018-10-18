@@ -1,11 +1,14 @@
 <?php
 require_once "modules/RuntimeTracker.php";
-require_once "modules/TreeBuilder.php";
+require_once "TreeBuilder/TreeBuilder.php";
 require_once "modules/Generator.php"; 
 
-$data   = generate_data(1000); // creates a file "tmp_generated_data.php" (random parent)
+$maxItems = 500;
+$data   = generate_data($maxItems);
+file_put_contents('example_data/tmp_random.php', $data);
+$data = include_once "example_data/tmp_random.php";
 
-$rt     = new RuntimeTracker;
+$rt = new RuntimeTracker;
 $rt->start();
 
 ?>
@@ -43,18 +46,13 @@ $rt->start();
 </head>
 <body>
 
-Random parent:
+Random items: <?=$maxItems;?>
 <div class="tree">
 <?php
-
-    $tb   = new TreeBuilder;
-    $tb->setData($data);
-
+    $tb = TreeBuilder::create($data, [], [], false);
     echo $tb->showTree();
-    //print_r($tb->getTree());
-
+    
     $rt->end();
-
 ?>
 </div>
 
