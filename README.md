@@ -80,10 +80,11 @@ childNode($item, $childNodes, $aliases, $nestingLevel, $userParams);
 
 Корневой узел  
 ```php
-rootNode($nodes, $firstStart);
+rootNode($nodes, $firstStart, $userParams);
 ```
 * `$nodes` - это данные из childNode()
 * `$firstStart` - true, при первом запуске
+* `$userParams` - параметры пользователя
 
 **Примеры использования**  
 
