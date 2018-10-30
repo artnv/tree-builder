@@ -26,7 +26,7 @@ $tb = TreeBuilder::create($dataArr, null, null, false);
 Обязательные поля: `id`, `parent`, `title` и `position` (если используется сортировка)
 
 ```php
-$dataArr = [
+$dataArr[] = [
     'id' => 1
     'parent_id' => 0
     'img' => '123.jpg'
