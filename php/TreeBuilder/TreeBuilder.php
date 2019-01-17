@@ -1,39 +1,48 @@
 <?php
 
 /*
-    v0.2
-    https://github.com/artnv/tree-builder
-    docs: https://github.com/artnv/tree-builder/blob/master/README.md
-*/
-
-include_once "TreeBuilderInterface.php";
+ * v0.2
+ * https://github.com/artnv/tree-builder
+ * docs: https://github.com/artnv/tree-builder/blob/master/README.md
+ */
+namespace TreeBuilder;
 
 class TreeBuilder implements TreeBuilderInterface
 {
 
     private $inputArr;
+
     private $inputTmpArr;
+
     private $inputArrLength;
+
     private $outputArr;
+
     private $parentsArr;
+
     private $childsArr;
+
     private $html;
+
     private $userParams;
+
     private $sort_enabled;
+
     private $nestingLevel = 0;
+
     private $aliases = [
         'id' => 'id',
         'parent' => 'parent',
         'title' => 'title',
         'child' => 'child',
-        'position' => 'position',
+        'position' => 'position'
     ];
 
     public function rootNode($nodes, $firstStart, $userParams)
     {
         $options = $firstStart ? 'class="tree-root"' : 'class="tree-child"';
 
-        return ('<ul " '.$options.'>'.$nodes.'</ul>');
+        return ('<ul " ' . $options . '>' . $nodes . '</ul>');
     }
 
     public function childNode($item, $childNodes, $aliases, $nestingLevel, $userParams)
@@ -44,7 +53,7 @@ class TreeBuilder implements TreeBuilderInterface
         // html
         $html = '';
         $html .= '<li class="tree-item">';
-        $html .= ('<a href="'.$linkHref.'">'.$title.'</a>'); 
+        $html .= ('<a href="' . $linkHref . '">' . $title . '</a>');
         $html .= $childNodes;
         $html .= '</li>';
 
@@ -57,18 +66,18 @@ class TreeBuilder implements TreeBuilderInterface
         $nodes = '';
         $ln = count($arr);
 
-        while ($ln--) {
+        while ($ln --) {
 
             $childNodes = null;
 
             if (isset($arr[$ln][$this->aliases['child']])) {
-                $this->nestingLevel++;
+                $this->nestingLevel ++;
                 $childNodes = $this->makeRecursiveVisualTree($arr[$ln][$this->aliases['child']], false, $this->nestingLevel);
             }
 
             $nodes .= $this->childNode($arr[$ln], $childNodes, $this->aliases, $nestingLevel, $this->userParams);
         }
-        
+
         $this->nestingLevel = 0;
         $this->html = $this->rootNode($nodes, $firstStart, $this->userParams);
 
@@ -78,15 +87,14 @@ class TreeBuilder implements TreeBuilderInterface
     // Создание главных веток, у которых parent == 0
     private function makeMainTree()
     {
-
         $ln = $this->inputArrLength;
         $inputTmpArr = &$this->inputTmpArr;
 
-        while ($ln--) {
-           if ($inputTmpArr[$ln][$this->aliases['parent']] == 0) {
+        while ($ln --) {
+            if ($inputTmpArr[$ln][$this->aliases['parent']] == 0) {
                 $this->outputArr[] = $inputTmpArr[$ln];
                 unset($inputTmpArr[$ln]); // Удаляем родительские узлы с parent = 0;
-           }
+            }
         }
 
         $this->outputArr = $this->sort($this->outputArr);
@@ -99,39 +107,36 @@ class TreeBuilder implements TreeBuilderInterface
         $outputArrLength = count($outputArr);
 
         // Пробегаемся по новому массиву $outputArr, по "родителям"
-        while ($outputArrLength--) {
+        while ($outputArrLength --) {
 
             $inputArrLength = $this->inputArrLength;
 
             // Сравниваем с элементами из общего массива
-            while ($inputArrLength--) {
+            while ($inputArrLength --) {
 
                 if (isset($this->inputTmpArr[$inputArrLength])) {
 
-                    /* 
-                        Поиск дочерних элементов.
-                        После того как нашли потомка, добавляем его к родителю,
-                        далее переходим к найденному потомку и ищем уже его потомков в общем массиве 
-                    */
+                    /*
+                     * Поиск дочерних элементов.
+                     * После того как нашли потомка, добавляем его к родителю,
+                     * далее переходим к найденному потомку и ищем уже его потомков в общем массиве
+                     */
                     if ($outputArr[$outputArrLength][$aliases['id']] == $this->inputTmpArr[$inputArrLength][$aliases['parent']]) {
 
-                        if(!isset($outputArr[$outputArrLength][$aliases['child']])) {
+                        if (! isset($outputArr[$outputArrLength][$aliases['child']])) {
                             $outputArr[$outputArrLength][$aliases['child']] = [];
                         }
-                        
+
                         // Добавляем потомка в новый массив, к его родителю
                         $outputArr[$outputArrLength][$aliases['child']][] = $this->inputTmpArr[$inputArrLength];
 
                         // Удаляем чтобы повторно с ним не работать
                         unset($this->inputTmpArr[$inputArrLength]);
-                        
+
                         // Ищем потомков у найденного потомка
                         $this->recursiveSearch($outputArr[$outputArrLength][$aliases['child']]);
-
                     }
-
                 }
-
             }
 
             // Сортируем потомков
@@ -139,7 +144,6 @@ class TreeBuilder implements TreeBuilderInterface
                 $outputArr[$outputArrLength][$aliases['child']] = $this->sort($outputArr[$outputArrLength][$aliases['child']]);
             }
         }
-
     }
 
     public function resetTmpData()
@@ -162,16 +166,15 @@ class TreeBuilder implements TreeBuilderInterface
         $this->inputArr = $inputArr;
         $this->inputArrLength = count($inputArr);
         $this->sort_enabled = $sort_enabled;
-        
+
         // Псевдонимы входных данных
         if ($aliases) {
             foreach ($aliases as $alias => $val) {
                 if ($this->aliases[$alias]) {
                     $this->aliases[$alias] = $val;
-                } 
+                }
             }
         }
-
     }
 
     // Возвращает результат в виде массива
@@ -184,7 +187,7 @@ class TreeBuilder implements TreeBuilderInterface
             $this->resetTmpData();
             $this->makeMainTree();
             $this->recursiveSearch($this->outputArr);
-            
+
             return $this->outputArr;
         }
     }
@@ -205,37 +208,37 @@ class TreeBuilder implements TreeBuilderInterface
     {
         $i = $this->inputArrLength;
         $inputTmpArr = $this->inputTmpArr;
-        
-        while ($i--) {
+
+        while ($i --) {
             if ($inputTmpArr[$i][$this->aliases['id']] == $node[$this->aliases['parent']]) {
-               $this->parentsArr[] = $inputTmpArr[$i];
-               $this->recursiveParentSearch($inputTmpArr[$i]);
+                $this->parentsArr[] = $inputTmpArr[$i];
+                $this->recursiveParentSearch($inputTmpArr[$i]);
             }
         }
-    }    
+    }
 
     // Поиск дочерних узлов
     private function childSearch($node)
     {
         $i = $this->inputArrLength;
         $inputTmpArr = $this->inputTmpArr;
-        
-        while ($i--) {
+
+        while ($i --) {
             if ($inputTmpArr[$i][$this->aliases['parent']] == $node[$this->aliases['id']]) {
-               $this->childsArr[] = $inputTmpArr[$i];
+                $this->childsArr[] = $inputTmpArr[$i];
             }
         }
     }
 
     protected function sort($arr)
     {
-        if (!$this->sort_enabled) {
+        if (! $this->sort_enabled) {
             return $arr;
         }
 
         if ($arr && count($arr) >= 1) {
 
-            usort($arr, function($a, $b){
+            usort($arr, function ($a, $b) {
                 return ($a[$this->aliases['position']] - $b[$this->aliases['position']]);
             });
         }
@@ -250,7 +253,7 @@ class TreeBuilder implements TreeBuilderInterface
         $this->parentsArr[] = $node;
         $this->resetTmpData();
         $this->recursiveParentSearch($node);
-        
+
         return $this->parentsArr;
     }
 
@@ -260,7 +263,7 @@ class TreeBuilder implements TreeBuilderInterface
         $this->childsArr = [];
         $this->resetTmpData();
         $this->childSearch($node);
-        
+
         return $this->childsArr;
     }
 }
