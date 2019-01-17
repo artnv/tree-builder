@@ -15,7 +15,20 @@ js  v0.1.1
 * **Библиотека доступна в двух версиях, для PHP и для Javascript**
 
 Пример: https://artnv.github.io/tree-builder/index.html  
-**Еще больше примеров вы найдете в директории /php/**
+**Еще больше примеров вы найдете в директории /php/** 
+
+## Установка
+
+Через Composer
+```
+composer require artnv/tree-builder
+```
+
+или добавить
+```
+"artnv/tree-builder": "^0.2"
+``` 
+в секцию `require` в файле `composer.json`
 
 ### PHP
 
